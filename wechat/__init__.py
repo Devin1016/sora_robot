@@ -19,7 +19,7 @@ def wx_interface():
         signature = data.get("signature", "")
         timestamp = data.get("timestamp", "")
         nonce = data.get("nonce", "")
-        echostr = data.get('echostr', '')
+        echostr = data.get("echostr", "")
         s = [timestamp, nonce, token]
         s.sort()
         s = "".join(s)
