@@ -40,9 +40,6 @@ class Query(BaseQuery):
 
 db = SQLAlchemy(app, query_class=Query)
 
-with app.app_context():
-    db.create_all()
-
 
 class Base(db.Model):
     __abstract__ = True

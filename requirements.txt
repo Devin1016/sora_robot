@@ -2,3 +2,7 @@ flask
 flask-sqlalchemy
 mysqlclient
 flask_script
+cymysql
+werkzeug
+sqlalchemy
+xmltodict

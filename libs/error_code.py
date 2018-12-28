@@ -52,7 +52,7 @@ class Forbidden(APIException):
     msg = 'forbidden, not in scope'
 
 
-class DuplicateGift(APIException):
+class MessageTypeError(APIException):
     code = 400
     error_code = 2001
-    msg = 'the current book has already in gift'
+    msg = 'message type is not found'

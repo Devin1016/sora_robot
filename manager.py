@@ -7,6 +7,7 @@ from flask_script import Manager, Server
 from application import app
 import url
 
+
 manager = Manager(app)
 
 manager.add_command("runserver", Server(
