@@ -2,7 +2,7 @@
 
 __date__ = '2018/12/28/028 14:11'
 
-from flask import request
+from flask import request, render_template
 
 from libs.redprint import RedPrint
 from .base import wechat_validate
@@ -13,13 +13,15 @@ official = RedPrint("official")
 
 @official.route("", methods=["GET", "POST"])
 def wechat_interface():
+    data = request.args
+    res = wechat_validate(data)
     if request.method == "GET":
-        data = request.args
-        res = wechat_validate(data)
         if res is not False:
             return res
     else:
-        xml_rec = request.stream.read()
-        msg = Message(xml_rec)
-        msg.massage_path()
+        if res is not False:
+            xml_rec = request.stream.read()
+            msg = Message(xml_rec)
+            res = msg.dispatch()
+            return res
     return "Hello wechat!"

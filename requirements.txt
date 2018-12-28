@@ -6,3 +6,4 @@ cymysql
 werkzeug
 sqlalchemy
 xmltodict
+requests
