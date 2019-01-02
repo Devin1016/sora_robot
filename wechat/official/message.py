@@ -8,6 +8,7 @@ import time
 from flask import render_template
 
 from .weather import get_weather
+from .translate import get_trans
 
 
 class Message(object):
@@ -41,7 +42,7 @@ class Message(object):
 
     def dispatch(self):
         if self.msg_type == "text":
-            return self.text_msg()
+            return self.text_msg_patch()
         elif self.msg_type == "image":
             pass
         elif self.msg_type == "voice":
@@ -57,14 +58,27 @@ class Message(object):
         elif self.msg_type == "event":
             pass
 
-    def text_msg(self):
-        self.content = get_weather(self.content)
-        res = self.re_text_msg()
+    def text_msg_patch(self):
+        if "-w" in self.content:
+            self.content = get_weather(self.content)
+        elif "-t" in self.content:
+            self.content = get_trans(self.content)
+        res = Message.re_msg(self)
         return res
 
-    def re_text_msg(self):
-        self.to_user_name, self.from_user_name = self.from_user_name, self.to_user_name
-        self.create_time = int(time.time())
-        return render_template("wechat_xml/text_message.xml", msg=self)
-
-
+    @staticmethod
+    def re_msg(msg):
+        msg.create_time = int(time.time())
+        msg.to_user_name, msg.from_user_name = msg.from_user_name, msg.to_user_name
+        if msg.msg_type == "text":
+            return render_template("wechat_xml/text_message.xml", msg=msg)
+        elif msg.msg_type == "image":
+            return render_template("wechat_xml/img_message.xml", msg=msg)
+        elif msg.msg_type == "voice":
+            return render_template("wechat_xml/voice_message.xml", msg=msg)
+        elif msg.msg_type == "video":
+            return render_template("wechat_xml/video_message.xml", msg=msg)
+        elif msg.msg_type == "music":
+            return render_template("wechat_xml/music_message.xml", msg=msg)
+        elif msg.msg_type == "news":
+            return render_template("wechat_xml/ti_message.xml", msg=msg)

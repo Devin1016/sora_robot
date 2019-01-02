@@ -1,18 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="Copy of project-level server 'sora'">
+  <component name="PublishConfigData" autoUpload="Always" serverName="sora">
     <serverData>
-      <paths name="Copy of project-level server 'sora'">
-        <serverdata>
-          <mappings>
-            <mapping deploy="/tmp/pycharm_project_386" local="$PROJECT_DIR$" />
-          </mappings>
-        </serverdata>
-      </paths>
       <paths name="sora">
         <serverdata>
           <mappings>
-            <mapping deploy="/var/www/sora_robot" local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/tmp/pycharm_project_318" local="$PROJECT_DIR$" />
           </mappings>
         </serverdata>
       </paths>

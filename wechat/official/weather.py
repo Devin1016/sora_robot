@@ -9,7 +9,7 @@ def get_weather(area):
     result = requests.get(
         url="http://api.map.baidu.com/telematics/v3/weather",
         params={
-            "location": area,
+            "location": area[2:],
             "output": "json",
             "ak": "2ab217b314342871ed183dddf165df75",
         }
