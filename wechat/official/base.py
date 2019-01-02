@@ -6,6 +6,8 @@ import hashlib
 import requests
 import time
 
+from controller.token_controller import TokenController
+
 
 access_token = ""
 over_timestamp = 0
@@ -27,9 +29,8 @@ def wechat_validate(data):
 
 
 def get_token():
-    global over_timestamp
-    global access_token
-    if over_timestamp < int(time.time()):
+    token = TokenController.check_token("wechat")
+    if token is False:
         payload_access_token = {
             'grant_type': 'client_credential',
             'appid': 'wx8ead9118850041df',
@@ -39,9 +40,9 @@ def get_token():
         timestamp = int(time.time())
         r = requests.get(token_url, params=payload_access_token)
         dict_result = (r.json())
-        over_timestamp = timestamp + dict_result['expires_in']
-        access_token = dict_result['access_token']
-    return access_token
+        TokenController().create_token(dict_result['access_token'], "wechat", timestamp + dict_result['expires_in'])
+        return dict_result["access_token"]
+    return token.access_token
 
 
 def get_media_id():

@@ -13,6 +13,7 @@ app.config.from_pyfile("config/setting.py")
 
 from libs.base_model import db
 from models.user import User
+from models.token import Token
 
 with app.app_context():
     db.create_all()

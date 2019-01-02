@@ -7,7 +7,7 @@ import time, requests
 from models.user import User
 
 from libs.base_model import db
-from wechat.official.base import over_timestamp, access_token, get_token
+from wechat.official.base import get_token
 
 
 class UserController(User):
@@ -37,18 +37,11 @@ class UserController(User):
 
     @staticmethod
     def get_wechat_info(openid):
-        if over_timestamp < int(time.time()):
-            payload_access_token = {
-                'access_token': get_token(),
-                'openid': openid,
-                'lang': 'zh_CN'
-            }
-        else:
-            payload_access_token = {
-                'access_token': access_token,
-                'openid': openid,
-                'lang': 'zh_CN'
-            }
+        payload_access_token = {
+            'access_token': get_token(),
+            'openid': openid,
+            'lang': 'zh_CN'
+        }
         token_url = 'https://api.weixin.qq.com/cgi-bin/user/info'
         r = requests.get(token_url, params=payload_access_token).json()
         return r
