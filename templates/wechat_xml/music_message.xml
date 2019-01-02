@@ -2,6 +2,12 @@
     <ToUserName><![CDATA[{{ msg.to_user_name }}]]></ToUserName>
     <FromUserName><![CDATA[{{ msg.from_user_name }}]]></FromUserName>
     <CreateTime>{{ msg.create_time }}</CreateTime>
-    <MsgType><![CDATA[text]]></MsgType>
-    <Content><![CDATA[{{ msg.content }}]]></Content>
+    <MsgType><![CDATA[music]]></MsgType>
+    <Music>
+        <Title><![CDATA[{{ msg.title }}]]></Title>
+        <Description><![CDATA[{{ msg.title }}]]></Description>
+        <MusicUrl><![CDATA[{{ msg.music_url }}]]></MusicUrl>
+        <HQMusicUrl><![CDATA[{{ msg.music_url }}]]></HQMusicUrl>
+        <ThumbMediaId><![CDATA[{{ msg.thumb_media_id }}]]></ThumbMediaId>
+    </Music>
 </xml>

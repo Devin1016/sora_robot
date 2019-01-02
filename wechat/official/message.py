@@ -9,6 +9,8 @@ from flask import render_template
 
 from .weather import get_weather
 from .translate import get_trans
+from .base import get_media_id
+from controller.user_controller import UserController
 
 
 class Message(object):
@@ -39,6 +41,7 @@ class Message(object):
         self.title = msg.get("Title", "")
         self.description = msg.get("Description", "")
         self.url = msg.get("Url", "")
+        self.music_url = ""
 
     def dispatch(self):
         if self.msg_type == "text":
@@ -56,6 +59,14 @@ class Message(object):
         elif self.msg_type == "link":
             pass
         elif self.msg_type == "event":
+            if self.event == "subscribe":
+                UserController().create_user(self.from_user_name)
+                self.msg_type = "music"
+                self.title = "佛系少女-冯提莫"
+                self.music_url = "https://api.mlwei.com/music/api/?key=523077333&type=url&id=004Mkw5K1oI9K9&size=m4a"
+                self.thumb_media_id = get_media_id()
+                res = Message.re_msg(self)
+                return res
             pass
 
     def text_msg_patch(self):
@@ -63,6 +74,11 @@ class Message(object):
             self.content = get_weather(self.content)
         elif "-t" in self.content:
             self.content = get_trans(self.content)
+        elif "-m" in self.content:
+            self.msg_type = "music"
+            self.title = "佛系少女-冯提莫"
+            self.music_url = "https://api.mlwei.com/music/api/?key=523077333&type=url&id=004Mkw5K1oI9K9&size=m4a"
+            self.thumb_media_id = get_media_id()
         res = Message.re_msg(self)
         return res
 

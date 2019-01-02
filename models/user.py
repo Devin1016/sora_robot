@@ -10,7 +10,7 @@ from libs.base_model import Base
 class User(Base):
     id = Column(Integer, primary_key=True)
     openid = Column(String(50), unique=True)
-    unionid = Column(String(50), unique=True)
+    unionid = Column(String(50))
     nickname = Column(String(20))
     headimgurl = Column(String(255))
     sex = Column(Integer, default=0)
